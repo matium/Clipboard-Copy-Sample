@@ -100,15 +100,21 @@ var Main = /** @class */ (function () {
     function Main() {
         var _this = this;
         this.clipboardCopy = function () {
-            _this.inputArea.select();
-            document.execCommand('copy');
+            var textArea = document.createElement('textarea');
+            textArea.value = _this.tweetHashText;
+            document.body.appendChild(textArea);
+            textArea.select();
+            var result = document.execCommand('copy');
+            document.body.removeChild(textArea);
+            console.log(result);
         };
         console.log('Main Init');
         this.copyButton = document.getElementById('copy-button');
-        this.inputArea = document.getElementById('copy-text');
         this.copyButton.onclick = function () {
             _this.clipboardCopy();
         };
+        // 定形テキストをコピーさせてみる
+        this.tweetHashText = "\uFF1C\u304A\u3044\u3057\u3044\u98DF\u4E8B\u3068\u30DF\u30F3\u30C6\u30A3\u30A2\u306E\u5199\u771F\u3084\u52D5\u753B\u3092\u6295\u7A3F\u3057\u3066\u306D\uFF01\uFF1E\n\t\t#\u98DF\u3079\u305F\u3089MINITA \n\t\thttp://www.mintia.jp/campaign/?=anm";
     }
     return Main;
 }());
